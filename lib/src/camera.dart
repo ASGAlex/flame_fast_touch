@@ -16,7 +16,7 @@ extension AtPointCamera on CameraComponent {
         yield* viewport.componentsAtPointFast(
           viewportPoint,
           nestedPoints,
-          ancestors,
+          ancestors.toList(),
         );
       } else if ((currentAncestor == world || currentAncestor == viewfinder) &&
           (world?.isMounted ?? false) &&
@@ -29,13 +29,13 @@ extension AtPointCamera on CameraComponent {
           yield* viewfinder.componentsAtPointFast(
             worldPoint,
             nestedPoints,
-            ancestors,
+            ancestors.toList(),
           );
         } else {
           yield* world!.componentsAtPointFast(
             worldPoint,
             nestedPoints,
-            ancestors,
+            ancestors.toList(),
           );
         }
         CameraComponent.currentCameras.removeLast();

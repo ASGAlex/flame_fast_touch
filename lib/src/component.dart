@@ -18,7 +18,7 @@ extension AtPointComponent on Component {
           yield* ancestor.componentsAtPointFast(
             childPoint,
             nestedPoints,
-            ancestors,
+            ancestors.toList(),
           );
         }
       } else {

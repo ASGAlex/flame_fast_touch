@@ -35,15 +35,15 @@ mixin FastTouch<W extends World> on FlameGame<W> {
         if (childPoint != null) {
           if (child is CameraComponent) {
             yield* child.componentsAtPointFast(
-                childPoint, nestedPoints, ancestorsOfRoot);
+                childPoint, nestedPoints, ancestorsOfRoot.toList());
           } else {
             yield* child.componentsAtPointFast(
-                childPoint, nestedPoints, ancestorsOfRoot);
+                childPoint, nestedPoints, ancestorsOfRoot.toList());
           }
         }
       }
     } else {
-      yield* componentsAtPointFast(point, nestedPoints, ancestors);
+      yield* componentsAtPointFast(point, nestedPoints, ancestors?.toList());
     }
   }
 }
