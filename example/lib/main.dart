@@ -5,7 +5,7 @@ import 'package:flame/game.dart';
 import 'package:flame_fast_touch/flame_fast_touch.dart';
 import 'package:flutter/material.dart';
 
-const componentsCount = 1000000;
+const componentsCount = 2000000;
 
 class TapCallbacksMultipleExample extends FlameGame with FastTouch {
   static const String description = '''
@@ -32,9 +32,11 @@ class TapCallbacksMultipleExample extends FlameGame with FastTouch {
     interactiveComponents.add(bottomSquare);
     world.add(interactiveComponents);
 
+    final updateTreeDisabled = ComponentNoTreeUpdate();
     for (var i = 1; i < componentsCount; i++) {
-      world.add(Component());
+      updateTreeDisabled.add(Component());
     }
+    world.add(updateTreeDisabled);
 
     camera.moveTo(bottomSquare.position + Vector2(0, -50));
 
@@ -53,9 +55,11 @@ class TapCallbacksVanillaExample extends FlameGame {
     add(TappableSquare()..anchor = Anchor.center);
     add(TappableSquare()..y = 350);
 
+    final updateTreeDisabled = ComponentNoTreeUpdate();
     for (var i = 1; i < componentsCount; i++) {
-      add(Component());
+      updateTreeDisabled.add(Component());
     }
+    add(updateTreeDisabled);
   }
 }
 
@@ -93,6 +97,14 @@ class TappableSquare extends PositionComponent
   void onTapCancel(_) {
     _beenPressed = false;
   }
+}
+
+class ComponentNoTreeUpdate extends Component {
+  @override
+  void updateTree(double dt) {}
+
+  @override
+  void renderTree(Canvas canvas) {}
 }
 
 class TwoPane extends StatelessWidget {
