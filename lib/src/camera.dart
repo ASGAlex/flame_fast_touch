@@ -1,3 +1,5 @@
+// ignore_for_file: invalid_use_of_internal_member
+
 import 'package:flame/components.dart';
 import 'package:flame_fast_touch/src/component.dart';
 
@@ -7,8 +9,9 @@ extension AtPointCamera on CameraComponent {
     List<Vector2>? nestedPoints,
     List<Component>? ancestors,
   ]) sync* {
-    final _viewportPoint = Vector2.zero();
-    final viewportPoint = viewport.globalToLocal(point, output: _viewportPoint);
+    final viewportPointOutput = Vector2.zero();
+    final viewportPoint =
+        viewport.globalToLocal(point, output: viewportPointOutput);
 
     if (ancestors != null && ancestors.isNotEmpty) {
       final currentAncestor = ancestors.removeLast();

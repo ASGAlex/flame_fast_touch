@@ -1,39 +1,32 @@
-<!-- 
-This README describes the package. If you publish this package to pub.dev,
-this README's contents appear on the landing page for your package.
-
-For information about how to write a good package README, see the guide for
-[writing package pages](https://dart.dev/guides/libraries/writing-package-pages). 
-
-For general information about developing packages, see the Dart guide for
-[creating packages](https://dart.dev/guides/libraries/create-library-packages)
-and the Flutter guide for
-[developing packages and plugins](https://flutter.dev/developing-packages). 
--->
-
-TODO: Put a short description of the package here that helps potential users
-know whether this package might be useful for them.
-
 ## Features
 
-TODO: List what your package can do. Maybe include images, gifs, or videos.
+Currently Flame works very slow with touch events in games with big count 
+of components. There is no any workaround in the framework itself to solve 
+this problem.
+
+This library is one of possible fast solutions to make your touch-input 
+fast again.
+
+You can compare vanilla performance with this library by playing with 
+this example: https://asgalex.github.io/flame_fast_touch/
 
 ## Getting started
 
-TODO: List prerequisites and provide or point to information on how to
-start using the package.
+There are some strict requirements you should to follow to make everything 
+work: 
+1. All components should be added into game's `world` component and it's
+    descendants. Not in game directly!
+2. Non-interactive components should be separated from interactive components
+    and settled into different parent components.
 
-## Usage
+After that, you will be able to use game's special variable 
+`componentsAtPointRoot`, which limits Framework to only one component, where
+it should search for tappable/draggable and other components in cause of touch 
+event. The `componentsAtPointRoot` could be changed at any time if you need to
+interact a component set from another branch of components tree. It even could
+be set to `null` in cause you need to fall back into default Flame's behavior.
 
-TODO: Include short and useful examples for package users. Add longer examples
-to `/example` folder. 
+## Usage examples
 
-```dart
-const like = 'sample';
-```
-
-## Additional information
-
-TODO: Tell users more about the package: where to find more information, how to 
-contribute to the package, how to file issues, what response they can expect 
-from the package authors, and more.
+A minimal working code example is [here](example/lib/main.dart), look at 
+`TapCallbacksMultipleExample` class. 
