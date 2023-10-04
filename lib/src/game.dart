@@ -2,7 +2,7 @@ import 'package:flame/components.dart';
 import 'package:flame/game.dart';
 import 'package:flame_fast_touch/flame_fast_touch.dart';
 
-mixin FastTouch on FlameGame {
+mixin FastTouch<W extends World> on FlameGame<W> {
   /// Grouping component which contains all interactive components, that should
   /// react on tap events, drag events and so on.
   ///
