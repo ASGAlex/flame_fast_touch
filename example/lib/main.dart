@@ -63,6 +63,28 @@ class TapCallbacksVanillaExample extends FlameGame {
   }
 }
 
+class TapCallbacksIgnoreMixinExample extends FlameGame {
+  static const String description = '''
+    This is vanilla version of touch handling, enchanted by new IgnoreEvents
+    mixin. The result should be the same as with FastTouch, but it requires to 
+    extend every component which should to ignore an event. 
+  ''';
+
+  @override
+  Future<void> onLoad() async {
+    add(TappableSquare()..anchor = Anchor.center);
+    add(TappableSquare()..y = 350);
+
+    final updateTreeDisabled = _IgnoreEventsComponent();
+    for (var i = 1; i < componentsCount; i++) {
+      updateTreeDisabled.add(Component());
+    }
+    add(updateTreeDisabled);
+  }
+}
+
+class _IgnoreEventsComponent extends ComponentNoTreeUpdate with IgnoreEvents {}
+
 class TappableSquare extends PositionComponent
     with TapCallbacks, HasGameReference<TapCallbacksMultipleExample> {
   static final Paint _white = Paint()..color = const Color(0xFFFFFFFF);
@@ -108,9 +130,15 @@ class ComponentNoTreeUpdate extends Component {
 }
 
 class TwoPane extends StatelessWidget {
-  const TwoPane({super.key, required this.gameLeft, required this.gameRight});
+  const TwoPane({
+    super.key,
+    required this.gameLeft,
+    required this.gameMiddle,
+    required this.gameRight,
+  });
 
   final FlameGame gameLeft;
+  final FlameGame gameMiddle;
   final FlameGame gameRight;
 
   @override
@@ -142,6 +170,19 @@ class TwoPane extends StatelessWidget {
                 ),
               ]),
               const VerticalDivider(width: 10),
+              Column(children: [
+                const Text('Flame with IgnoreEvents mixin',
+                    style: TextStyle(
+                      fontSize: 20,
+                      fontWeight: FontWeight.bold,
+                    )),
+                SizedBox(
+                  height: 600,
+                  width: 400,
+                  child: GameWidget(game: gameMiddle),
+                ),
+              ]),
+              const VerticalDivider(width: 10),
               Column(
                 children: [
                   const Text('Fast Touch plugin',
@@ -167,6 +208,7 @@ class TwoPane extends StatelessWidget {
 void main(List<String> args) async {
   runApp(TwoPane(
     gameLeft: TapCallbacksVanillaExample(),
+    gameMiddle: TapCallbacksIgnoreMixinExample(),
     gameRight: TapCallbacksMultipleExample(),
   ));
 }

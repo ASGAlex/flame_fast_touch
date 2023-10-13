@@ -10,8 +10,10 @@ extension AtPointCamera on CameraComponent {
     List<Component>? ancestors,
   ]) sync* {
     final viewportPointOutput = Vector2.zero();
-    final viewportPoint =
-        viewport.globalToLocal(point, output: viewportPointOutput);
+    final viewportPoint = viewport.globalToLocal(
+      point,
+      output: viewportPointOutput,
+    );
 
     if (ancestors != null && ancestors.isNotEmpty) {
       final currentAncestor = ancestors.removeLast();

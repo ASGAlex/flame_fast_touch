@@ -1,6 +1,6 @@
 name: flame_fast_touch
 description: Flame plugin to fix the problem of slow processing of touch events.
-version: 1.0.0
+version: 1.0.1
 repository: https://github.com/ASGAlex/flame_fast_touch
 
 environment:
@@ -9,7 +9,7 @@ environment:
 
 # Add regular dependencies here.
 dependencies:
-  flame: ^1.9.1
+  flame: ^1.10.0
   flutter:
     sdk: flutter
   # path: ^1.8.0

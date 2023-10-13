@@ -28,6 +28,9 @@ mixin FastTouch<W extends World> on FlameGame<W> {
           componentsAtPointRoot!.ancestors(includeSelf: true).toList();
       ancestorsOfRoot.removeLast(); // remove game component
       for (final child in children.reversed()) {
+        if (child is IgnoreEvents && child.ignoreEvents) {
+          continue;
+        }
         Vector2? childPoint = point;
         if (child is CoordinateTransform) {
           childPoint = (child as CoordinateTransform).parentToLocal(point);

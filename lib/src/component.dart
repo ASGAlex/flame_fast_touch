@@ -23,6 +23,9 @@ extension AtPointComponent on Component {
         }
       } else {
         for (final child in children.reversed()) {
+          if (child is IgnoreEvents && child.ignoreEvents) {
+            continue;
+          }
           Vector2? childPoint = point;
           if (child is CoordinateTransform) {
             childPoint = (child as CoordinateTransform).parentToLocal(point);
@@ -33,7 +36,10 @@ extension AtPointComponent on Component {
         }
       }
     }
-    if (containsLocalPoint(point)) {
+
+    final shouldIgnoreEvents =
+        this is IgnoreEvents && (this as IgnoreEvents).ignoreEvents;
+    if (containsLocalPoint(point) && !shouldIgnoreEvents) {
       yield this;
     }
     nestedPoints?.removeLast();

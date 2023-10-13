@@ -1,15 +1,23 @@
-## Features
+Without special tweaks the Flame works very slow with touch events in games with big count
+of components. 
 
-Currently Flame works very slow with touch events in games with big count
-of components. There is no any workaround in the framework itself to solve
-this problem.
+This is an alternative approach to Flame's slow processing of touch events problem.
+Since Flame 1.10.0 the `IgnoreEvents` mixin become available, it allows you to skip events
+processing for subtree of components of such mixin. 
+The disadvantage of such approach is that you should to place such mixins to every possible tree 
+root that could not process events. It might be hard to remember all branches of component tree so 
+you could still have an performance losses. 
+This library does not require any mixins (but supports Flame's ones) and allows you to specify 
+directly the root of subtree which descendants will process any touch events. 
+
+## Features
 
 This library is one of possible fast solutions to make your touch-input
 fast again.
 
 You can compare vanilla performance with this library by playing with
 this example: https://asgalex.github.io/flame_fast_touch/
-Probably you will wait a minute while it loads because about 2000000*2
+Probably you will wait a minute while it loads because about 2000000*3
 components should be loaded into game, it does not work too fast in browsers.
 
 ## Getting started
